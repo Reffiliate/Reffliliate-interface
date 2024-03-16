@@ -30,17 +30,25 @@ import {
   useSwitchChain,
 } from "wagmi";
 import { trimPublicKey } from "utils/utils";
+import { formatEther } from "viem";
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const { chains, switchChain } = useSwitchChain();
+  const { switchChain } = useSwitchChain();
   const { disconnect } = useDisconnect();
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorChainEl, setAnchorChainEl] = useState(null);
   const isOpen = Boolean(anchorEl);
-  const { address, chainId, isConnected } = useAccount();
-  const { data: balance } = useBalance();
+  const {
+    address,
+    chainId,
+    isConnected,
+    chain: { name: chainName },
+  } = useAccount();
+  const { data: balance } = useBalance({ address: address });
+  const [isChoosingChain, setIsChoosingChain] = useState(false);
 
   const { connectors, connect } = useConnect();
   const connectWallet = () => {
@@ -50,10 +58,20 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     setAnchorEl(event.currentTarget);
     connectWallet();
   };
+  const handleChainClick = (event) => {
+    console.log(event.currentTarget);
+    setAnchorChainEl(event.currentTarget);
+    setIsChoosingChain(true);
+  };
   const handleClose = () => setAnchorEl(null);
   const handleLogOut = () => {
     handleClose();
     disconnect();
+  };
+
+  const handleChangeChain = (chainId) => {
+    switchChain({ chainId: chainId });
+    setIsChoosingChain(false);
   };
 
   return (
@@ -91,9 +109,31 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }}></SettingsOutlined>
-          </IconButton>
+          <FlexBetween>
+            <Button onClick={handleChainClick}>
+              <Typography
+                sx={{
+                  color: theme.palette.secondary[100],
+                  fontSize: "0.75rem",
+                }}
+              >
+                {chainName ? chainName : "Switch Chain"}
+              </Typography>
+            </Button>
+            <Menu
+              anchorEl={anchorChainEl}
+              open={isChoosingChain}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              onClose={() => setIsChoosingChain(false)}
+            >
+              <MenuItem onClick={() => handleChangeChain(59140)}>
+                Linea Testnet
+              </MenuItem>
+              <MenuItem onClick={() => handleChangeChain(1442)}>
+                Polygon zkEVM
+              </MenuItem>
+            </Menu>
+          </FlexBetween>
           <FlexBetween>
             <Button
               onClick={handleClick}
@@ -124,7 +164,9 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         sx={{ color: theme.palette.secondary[100] }}
                       >
                         {!!balance
-                          ? balance.value.toString() + " " + balance.symbol
+                          ? formatEther(balance.value.toString()).slice(0, 6) +
+                            " " +
+                            balance.symbol
                           : 0}
                       </Typography>{" "}
                     </Box>

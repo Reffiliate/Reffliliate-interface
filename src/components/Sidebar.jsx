@@ -26,68 +26,82 @@ import {
   PieChartOutlined,
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
-  Person,
+  ListAltOutlined,
+  SettingsAccessibilityOutlined,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
-import profileImage from "assets/profile.png";
 
 const navItems = [
   {
     text: "Dashboard",
+    url: "Dashboard",
     icon: <HomeOutlined />,
   },
   {
     text: "Client",
+    url: "Client",
     icon: null,
   },
   {
-    text: "Profiles",
-    icon: <Person />,
+    text: "Campaigns",
+    url: "Campaigns",
+    icon: <ListAltOutlined />,
   },
   {
-    text: "Customers",
-    icon: <Groups2Outlined />,
+    text: "Manage Campaigns",
+    url: "ManageCampaigns",
+    icon: <SettingsAccessibilityOutlined />,
   },
   {
     text: "Transactions",
+    url: "Transactions",
     icon: <ReceiptLongOutlined />,
   },
   {
     text: "Geography",
+    url: "Geography",
     icon: <PublicOutlined />,
   },
   {
     text: "Sales",
+    url: "Sales",
     icon: null,
   },
   {
     text: "Overview",
+    url: "Overview",
     icon: <PointOfSaleOutlined />,
   },
   {
     text: "Daily",
+    url: "Daily",
     icon: <TodayOutlined />,
   },
   {
     text: "Monthly",
+    url: "Monthly",
     icon: <CalendarMonthOutlined />,
   },
   {
     text: "Breakdown",
+    url: "Breakdown",
     icon: <PieChartOutlined />,
   },
   {
     text: "Management",
+    url: "Management",
     icon: null,
   },
   {
     text: "Admin",
+    url: "Admin",
     icon: <AdminPanelSettingsOutlined />,
   },
   {
     text: "Performance",
+    url: "Performance",
     icon: <TrendingUpOutlined />,
   },
 ];
@@ -143,7 +157,7 @@ const Sidebar = ({
               </FlexBetween>
             </Box>
             <List>
-              {navItems.map(({ text, icon }) => {
+              {navItems.map(({ text, url, icon }) => {
                 if (!icon) {
                   return (
                     <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
@@ -151,7 +165,7 @@ const Sidebar = ({
                     </Typography>
                   );
                 }
-                const lcText = text.toLowerCase();
+                const lcText = url.toLowerCase();
                 return (
                   <ListItem key={text} disablePadding>
                     <ListItemButton
@@ -197,7 +211,6 @@ const Sidebar = ({
               <Box
                 component="img"
                 alt="profile"
-                src={profileImage}
                 height="40px"
                 width="40px"
                 borderRadius="50%"

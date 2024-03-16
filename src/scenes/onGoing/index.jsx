@@ -2,10 +2,9 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "components/Header";
 import { useState } from "react";
-import { useGetTransactionsQuery } from "state/api";
 import DataGridCustomToolbar from "components/DataGridCustomToolbar";
 
-const Transactions = () => {
+const OnGoing = () => {
   const theme = useTheme();
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 20,
@@ -15,12 +14,7 @@ const Transactions = () => {
   const [search, setSearch] = useState("");
 
   const [searchInput, setSearchInput] = useState("");
-  const { data, isLoading } = useGetTransactionsQuery({
-    page: paginationModel.page,
-    pageSize: paginationModel.pageSize,
-    sort: JSON.stringify(sort),
-    search,
-  });
+  const { data, isLoading } = {};
 
   console.log("DATA Tx:", data);
 
@@ -57,7 +51,7 @@ const Transactions = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="TRANSACTIONS" subtitle="Entire list of Tx"></Header>
+      <Header title="OnGoing" subtitle="Entire list of Tx"></Header>
       <Box
         height="80vh"
         sx={{
@@ -93,7 +87,7 @@ const Transactions = () => {
           }}
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.transactions) || []}
+          rows={(data && data.OnGoing) || []}
           columns={columns}
           rowCount={(data && data.total) || 0}
           pageSizeOptions={[20, 50, 100]}
@@ -113,4 +107,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default OnGoing;

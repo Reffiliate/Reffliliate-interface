@@ -1,11 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const useGetCustomersQuery = () => {
-  return {
-    data: [],
-    isLoading: false,
-  };
-};
 const useGetUserQuery = () => {
   return {
     data: [],
@@ -22,8 +16,22 @@ const useGetCampaignsQuery = () => {
   return {
     data: [
       {
-        name: "Airdrop $SV",
+        name: "Airdrop $SV #0",
         fund: "100",
+        remainingFund: "50",
+        transactionReward: "5",
+        referralReward: "10",
+      },
+      {
+        name: "Airdrop $SV #1",
+        fund: "200",
+        remainingFund: "50",
+        transactionReward: "5",
+        referralReward: "10",
+      },
+      {
+        name: "Airdrop $SV #2",
+        fund: "500",
         remainingFund: "50",
         transactionReward: "5",
         referralReward: "10",
@@ -33,9 +41,4 @@ const useGetCampaignsQuery = () => {
   };
 };
 
-export {
-  useGetUserQuery,
-  useGetCampaignsQuery,
-  useGetCustomersQuery,
-  useGetTransactionsQuery,
-};
+export { useGetUserQuery, useGetCampaignsQuery, useGetTransactionsQuery };

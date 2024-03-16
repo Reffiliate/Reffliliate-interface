@@ -6,9 +6,9 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { themeSettings } from "theme";
 import Layout from "scenes/layout";
 import Dashboard from "scenes/dashboard";
-import Profiles from "scenes/campaigns";
-import Customers from "scenes/customers";
-import Transactions from "scenes/transactions";
+import Campaigns from "scenes/campaigns";
+import ManageCampaigns from "scenes/manageCampaigns";
+import Transactions from "scenes/onGoing";
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
@@ -22,8 +22,8 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/profiles" element={<Profiles />} />
-              <Route path="/customers" element={<Customers />} />
+              <Route path="/campaigns" element={<Campaigns />} />
+              <Route path="/managecampaigns" element={<ManageCampaigns />} />
               <Route path="/transactions" element={<Transactions />} />
             </Route>
           </Routes>

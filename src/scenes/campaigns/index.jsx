@@ -35,7 +35,7 @@ const Campaign = ({
       <CardContent>
         <Typography
           sx={{ fontSize: 20 }}
-          color={theme.palette.secondary[700]}
+          color={theme.palette.secondary[300]}
           gutterBottom
         >
           {name}
@@ -45,7 +45,7 @@ const Campaign = ({
         </Typography>
         <br />
         <Typography sx={{ fontSize: "1rem" }} color="lightblue">
-          Initial Fund: ${fund}
+          Total Fund: ${fund}
         </Typography>
         <Typography sx={{ mb: "1rem", fontSize: "1rem" }} color="lightgreen">
           Remaining Fund ${remainingFund}
@@ -69,7 +69,7 @@ const Campaign = ({
           <Typography
             sx={{ mb: "0.5rem", color: theme.palette.secondary[400] }}
           >
-            Description: <br></br>
+            Tx Reward:
             <Typography
               sx={{ mb: "0.5rem", color: theme.palette.secondary[700] }}
             >
@@ -79,7 +79,7 @@ const Campaign = ({
           <Typography
             sx={{ mb: "0.5rem", color: theme.palette.secondary[400] }}
           >
-            Note: <br></br>
+            Ref Reward:
             <Typography
               sx={{ mb: "0.5rem", color: theme.palette.secondary[700] }}
             >
@@ -117,19 +117,17 @@ const Campaigns = () => {
           }}
         >
           {data.map(
-            ({
-              name,
-              fund,
-              remainingFund,
-              transactionReward,
-              referralReward,
-            }) => (
+            (
+              { name, fund, remainingFund, transactionReward, referralReward },
+              index
+            ) => (
               <Campaign
                 name={name}
                 fund={fund}
                 remainingFund={remainingFund}
                 transactionReward={transactionReward}
                 referralReward={referralReward}
+                key={index}
               ></Campaign>
             )
           )}

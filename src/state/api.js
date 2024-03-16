@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const useGetUserQuery = () => {
   return {
-    data: [],
+    data: [
+      
+    ],
     isLoading: false,
   };
 };
